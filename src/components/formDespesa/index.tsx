@@ -1,5 +1,6 @@
 "use client";
 
+import { IDespesa } from "@/interfaces/IDespesa";
 import { Button, DatePicker, Form, Input, InputNumber, Select } from "antd";
 
 const { Option } = Select;
@@ -7,8 +8,8 @@ const { Option } = Select;
 export default function FormDespesa() {
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
-    console.log(values);
+  const onFinish = (values: IDespesa) => {
+    console.log(values.valorDespesa);
   };
 
   return (

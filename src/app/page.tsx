@@ -1,5 +1,7 @@
 import AddNewDespesa from "@/components/addNewDespesa";
 import Layout from "@/components/layout";
+import ListDespesa from "@/components/listDespesa";
+import { despesasMock } from "@/mocks/despesasMock";
 import { Divider } from "antd";
 export default function Home() {
   return (
@@ -12,6 +14,7 @@ export default function Home() {
           <AddNewDespesa />
         </div>
         <Divider />
+        <ListDespesa despesas={despesasMock} />
       </div>
     </Layout>
   );
