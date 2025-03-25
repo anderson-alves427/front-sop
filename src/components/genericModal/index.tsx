@@ -7,6 +7,9 @@ interface GenericModalProps {
   isModalOpen: boolean;
   handleClose: () => void;
   footer?: boolean;
+  cancelText?: string;
+  onOk?: () => void;
+  okText?: string;
 }
 
 export default function GenericModal({
@@ -15,6 +18,9 @@ export default function GenericModal({
   isModalOpen,
   handleClose,
   footer,
+  onOk,
+  okText,
+  cancelText,
 }: GenericModalProps) {
   return (
     <Modal
@@ -22,6 +28,9 @@ export default function GenericModal({
       open={isModalOpen}
       onCancel={handleClose}
       footer={footer}
+      cancelText={cancelText}
+      onOk={onOk}
+      okText={okText}
     >
       {children}
     </Modal>

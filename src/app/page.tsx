@@ -23,7 +23,7 @@ export default async function Despesa() {
         </ButtonOpenGenericModal>
       </div>
       <Divider />
-      <ListDespesa despesas={despesas} />
+      <ListDespesa despesas={despesas || []} />
     </div>
   );
 }
