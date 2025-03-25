@@ -31,7 +31,7 @@ const despesasMock: IDespesa[] = [
     descricao: "Descrição",
     numeroProtocolo: "456454.54654-54561",
     status: "teste",
-    tipoDespesa: "OBRAS_EDIFICACAO",
+    tipoDespesa: "OUTROS",
     valorDespesa: 70,
   },
 ];

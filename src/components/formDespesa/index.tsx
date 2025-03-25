@@ -1,16 +1,37 @@
 "use client";
 
 import { IDespesa } from "@/interfaces/IDespesa";
-import { Button, DatePicker, Form, Input, InputNumber, Select } from "antd";
+import { Button, Form, Input, InputNumber, Select } from "antd";
+import { useEffect } from "react";
 
 const { Option } = Select;
 
-export default function FormDespesa() {
+interface FormDespesaProps {
+  despesa?: IDespesa;
+}
+
+export default function FormDespesa({ despesa }: FormDespesaProps) {
   const [form] = Form.useForm();
 
   const onFinish = (values: IDespesa) => {
     console.log(values.valorDespesa);
   };
+
+  useEffect(() => {
+    if (despesa) {
+      form.setFieldsValue({
+        id: despesa.id,
+        numeroProtocolo: despesa.numeroProtocolo,
+        credorDespesa: despesa.credorDespesa,
+        tipoDespesa: despesa.tipoDespesa,
+        dataProtocolo: despesa.dataProtocolo,
+        dataVencimento: despesa.dataVencimento,
+        valorDespesa: despesa.valorDespesa,
+        descricao: despesa.descricao,
+        status: despesa.status,
+      });
+    }
+  }, [despesa, form]);
 
   return (
     <Form layout="vertical" form={form} onFinish={onFinish}>
@@ -38,22 +59,27 @@ export default function FormDespesa() {
       <Form.Item label="Valor da despesa" name="valorDespesa">
         <InputNumber />
       </Form.Item>
-      <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
+      <Form.Item
+        name="tipoDespesa"
+        label="Tipo de despesa"
+        rules={[{ required: true }]}
+      >
         <Select
-          placeholder="Select a option and change input text above"
+          placeholder="Selecione um tipo de despesa"
           allowClear
+          value={form.getFieldValue("tipoDespesa")}
         >
           <Option value="OBRA_EDIFICACAO">Obra de edificação</Option>
           <Option value="OBRA_RODOVIAS">Obra de rodovias</Option>
           <Option value="OUTROS">Outros</Option>
         </Select>
       </Form.Item>
-      <Form.Item label="Data do protocolo" name="dataProtocolo">
+      {/* <Form.Item label="Data do protocolo" name="dataProtocolo">
         <DatePicker />
       </Form.Item>
       <Form.Item label="Data do vencimento" name="dataVencimento">
         <DatePicker />
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item
         label="Descrição"
         name="descricao"

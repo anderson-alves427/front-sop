@@ -14,6 +14,7 @@ export default function AddNewDespesa() {
         handleClose={() => setIsModalOpen(false)}
         isModalOpen={isModalOpen}
         title="Criar despesa"
+        footer
       >
         <FormDespesa />
       </GenericModal>

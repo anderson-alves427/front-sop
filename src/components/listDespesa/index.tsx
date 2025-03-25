@@ -4,18 +4,20 @@ import { IDespesa } from "@/interfaces/IDespesa";
 import { Space, Table, TableProps } from "antd";
 import { useState } from "react";
 import GenericModal from "../genericModal";
+import FormDespesa from "../formDespesa";
 
 interface ListDespesaProps {
   despesas: IDespesa[];
 }
 
 export default function ListDespesa({ despesas }: ListDespesaProps) {
-  const [selectedDespesa, setSelectedDespesa] = useState<IDespesa | null>(null);
+  const [selectedDespesa, setSelectedDespesa] = useState<IDespesa>();
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
 
-  const handleClickEditDespesa = (id: string) => {
-    console.log("Edit despesa", id);
+  const handleClickEditDespesa = (despesa: IDespesa) => {
+    setSelectedDespesa(despesa);
+    setIsOpenModalEdit(true);
   };
 
   const handleClickDeleteDespesa = (despesa: IDespesa) => {
@@ -50,8 +52,8 @@ export default function ListDespesa({ despesas }: ListDespesaProps) {
     },
     {
       title: "Status",
-      dataIndex: "statusDespesa",
-      key: "statusDespesa",
+      dataIndex: "status",
+      key: "status",
       render: (text) => <a>{text}</a>,
     },
     {
@@ -60,7 +62,7 @@ export default function ListDespesa({ despesas }: ListDespesaProps) {
       render: (_, row) => (
         <Space size="middle">
           <a>Empenhos</a>
-          <a onClick={() => handleClickEditDespesa(row.id)}>Editar</a>
+          <a onClick={() => handleClickEditDespesa(row)}>Editar</a>
           <a onClick={() => handleClickDeleteDespesa(row)}>Deletar</a>
         </Space>
       ),
@@ -83,6 +85,14 @@ export default function ListDespesa({ despesas }: ListDespesaProps) {
         <div>{`Você tem certeza que deseja deletar a depesa de número de protocolo ${
           selectedDespesa?.numeroProtocolo || ""
         }?`}</div>
+      </GenericModal>
+      <GenericModal
+        handleClose={() => setIsOpenModalEdit(false)}
+        isModalOpen={isOpenModalEdit}
+        title="Editar"
+        footer
+      >
+        <FormDespesa despesa={selectedDespesa} />
       </GenericModal>
     </>
   );
