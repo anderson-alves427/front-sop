@@ -6,6 +6,7 @@ interface GenericModalProps {
   children: ReactNode;
   isModalOpen: boolean;
   handleClose: () => void;
+  footer?: boolean;
 }
 
 export default function GenericModal({
@@ -13,9 +14,15 @@ export default function GenericModal({
   children,
   isModalOpen,
   handleClose,
+  footer,
 }: GenericModalProps) {
   return (
-    <Modal title={title} open={isModalOpen} onCancel={handleClose} footer>
+    <Modal
+      title={title}
+      open={isModalOpen}
+      onCancel={handleClose}
+      footer={footer}
+    >
       {children}
     </Modal>
   );

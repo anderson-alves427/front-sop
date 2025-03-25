@@ -2,18 +2,25 @@
 
 import { IDespesa } from "@/interfaces/IDespesa";
 import { Space, Table, TableProps } from "antd";
+import { useState } from "react";
+import GenericModal from "../genericModal";
 
 interface ListDespesaProps {
   despesas: IDespesa[];
 }
 
 export default function ListDespesa({ despesas }: ListDespesaProps) {
+  const [selectedDespesa, setSelectedDespesa] = useState<IDespesa | null>(null);
+  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
+  const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
+
   const handleClickEditDespesa = (id: string) => {
     console.log("Edit despesa", id);
   };
 
-  const hadndleClickDeleteDespesa = (id: string) => {
-    console.log("Delete despesa", id);
+  const handleClickDeleteDespesa = (despesa: IDespesa) => {
+    setSelectedDespesa(despesa);
+    setIsOpenModalDelete(true);
   };
 
   const columns: TableProps<IDespesa>["columns"] = [
@@ -50,21 +57,33 @@ export default function ListDespesa({ despesas }: ListDespesaProps) {
     {
       title: "Ações",
       key: "action",
-      render: (_, { id }) => (
+      render: (_, row) => (
         <Space size="middle">
           <a>Empenhos</a>
-          <a onClick={() => handleClickEditDespesa(id)}>Editar</a>
-          <a onClick={() => hadndleClickDeleteDespesa(id)}>Deletar</a>
+          <a onClick={() => handleClickEditDespesa(row.id)}>Editar</a>
+          <a onClick={() => handleClickDeleteDespesa(row)}>Deletar</a>
         </Space>
       ),
     },
   ];
 
   return (
-    <Table<IDespesa>
-      columns={columns}
-      dataSource={despesas}
-      rowKey="numeroProtocolo"
-    />
+    <>
+      <Table<IDespesa>
+        columns={columns}
+        dataSource={despesas}
+        rowKey="numeroProtocolo"
+      />
+
+      <GenericModal
+        title="Deletar despesa"
+        isModalOpen={isOpenModalDelete}
+        handleClose={() => setIsOpenModalDelete(false)}
+      >
+        <div>{`Você tem certeza que deseja deletar a depesa de número de protocolo ${
+          selectedDespesa?.numeroProtocolo || ""
+        }?`}</div>
+      </GenericModal>
+    </>
   );
 }
