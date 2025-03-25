@@ -15,7 +15,7 @@ export default function GenericModal({
   handleClose,
 }: GenericModalProps) {
   return (
-    <Modal title={title} open={isModalOpen} onCancel={handleClose}>
+    <Modal title={title} open={isModalOpen} onCancel={handleClose} footer>
       {children}
     </Modal>
   );

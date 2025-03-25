@@ -1,12 +1,18 @@
 "use client";
 
-import { DatePicker, Form, Input, InputNumber, Select } from "antd";
+import { Button, DatePicker, Form, Input, InputNumber, Select } from "antd";
 
 const { Option } = Select;
 
 export default function FormDespesa() {
+  const [form] = Form.useForm();
+
+  const onFinish = (values: any) => {
+    console.log(values);
+  };
+
   return (
-    <Form layout="vertical">
+    <Form layout="vertical" form={form} onFinish={onFinish}>
       <Form.Item
         name="numeroProtocolo"
         label="Número do protocolo"
@@ -34,7 +40,6 @@ export default function FormDespesa() {
       <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
         <Select
           placeholder="Select a option and change input text above"
-          // onChange={onGenderChange}
           allowClear
         >
           <Option value="OBRA_EDIFICACAO">Obra de edificação</Option>
@@ -54,6 +59,16 @@ export default function FormDespesa() {
         rules={[{ required: true }]}
       >
         <Input.TextArea />
+      </Form.Item>
+      <Form.Item
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <Button type="primary" htmlType="submit">
+          Salvar
+        </Button>
       </Form.Item>
     </Form>
   );
