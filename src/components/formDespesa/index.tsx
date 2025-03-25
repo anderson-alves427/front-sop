@@ -67,7 +67,7 @@ export default function FormDespesa({ despesa }: FormDespesaProps) {
         <Select
           placeholder="Selecione um tipo de despesa"
           allowClear
-          value={form.getFieldValue("tipoDespesa")}
+          value={form.getFieldValue("")}
         >
           <Option value="OBRA_EDIFICACAO">Obra de edificação</Option>
           <Option value="OBRA_RODOVIAS">Obra de rodovias</Option>

@@ -1,4 +1,5 @@
 import ButtonOpenGenericModal from "@/components/buttonOpenGenericModal";
+import FormEmpenhoPagamento from "@/components/formEmpenhoPagamento";
 import { Divider } from "antd";
 
 export default function Empenho() {
@@ -17,7 +18,7 @@ export default function Empenho() {
           buttonLabel="Adicionar Novo Empenho"
           titleModal="Criar Novo Empenho"
         >
-          sd
+          <FormEmpenhoPagamento />
         </ButtonOpenGenericModal>
       </div>
       <Divider />
