@@ -1,7 +1,8 @@
 "use client";
 
 import { IDespesa } from "@/interfaces/IDespesa";
-import { Button, Form, Input, InputNumber, Select } from "antd";
+import { Button, DatePicker, Form, Input, InputNumber, Select } from "antd";
+import dayjs from "dayjs";
 import { useEffect } from "react";
 
 const { Option } = Select;
@@ -14,18 +15,17 @@ export default function FormDespesa({ despesa }: FormDespesaProps) {
   const [form] = Form.useForm();
 
   const onFinish = (values: IDespesa) => {
-    console.log(values.valor);
+    const formattedDate = dayjs(values.dataProtocolo).format("YYYY-MM-DD");
+    console.log(formattedDate);
   };
 
   useEffect(() => {
     if (despesa) {
       form.setFieldsValue({
         id: despesa.id,
-        numeroProtocolo: despesa.numeroProtocolo,
         credor: despesa.credor,
         tipoDespesa: despesa.tipoDespesa,
-        dataProtocolo: despesa.dataProtocolo,
-        dataVencimento: despesa.dataVencimento,
+        dataVencimento: dayjs(despesa.dataVencimento),
         valor: despesa.valor,
         descricao: despesa.descricao,
         status: despesa.status,
@@ -35,15 +35,6 @@ export default function FormDespesa({ despesa }: FormDespesaProps) {
 
   return (
     <Form layout="vertical" form={form} onFinish={onFinish}>
-      <Form.Item
-        name="numeroProtocolo"
-        label="Número do protocolo"
-        rules={[
-          { required: true, message: "Número do protocolo é obrigatório" },
-        ]}
-      >
-        <Input />
-      </Form.Item>
       <Form.Item
         name="credor"
         label="Credor da despesa"
@@ -58,6 +49,9 @@ export default function FormDespesa({ despesa }: FormDespesaProps) {
       </Form.Item>
       <Form.Item label="Valor da despesa" name="valor">
         <InputNumber />
+      </Form.Item>
+      <Form.Item label="Data do vencimento" name="dataVencimento">
+        <DatePicker format="DD/MM/YYYY" required />
       </Form.Item>
       <Form.Item
         name="tipoDespesa"
@@ -74,12 +68,7 @@ export default function FormDespesa({ despesa }: FormDespesaProps) {
           <Option value="OUTROS">Outros</Option>
         </Select>
       </Form.Item>
-      {/* <Form.Item label="Data do protocolo" name="dataProtocolo">
-        <DatePicker />
-      </Form.Item>
-      <Form.Item label="Data do vencimento" name="dataVencimento">
-        <DatePicker />
-      </Form.Item> */}
+
       <Form.Item
         label="Descrição"
         name="descricao"
