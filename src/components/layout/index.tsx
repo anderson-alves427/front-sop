@@ -11,7 +11,7 @@ export default function Layout({ children }: LayoutProps) {
         <h1 className="font-semibold">Sistema Sop</h1>
         <div>Icone</div>
       </header>
-      <div className="h-[90%]">{children}</div>
+      <div className="h-[90%] p-6">{children}</div>
     </div>
   );
 }
