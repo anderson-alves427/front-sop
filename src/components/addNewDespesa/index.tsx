@@ -3,6 +3,7 @@
 import { Button } from "antd";
 import { useState } from "react";
 import GenericModal from "../genericModal";
+import FormDespesa from "../formDespesa";
 
 export default function AddNewDespesa() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,7 +15,7 @@ export default function AddNewDespesa() {
         isModalOpen={isModalOpen}
         title="Criar despesa"
       >
-        <div>asd</div>
+        <FormDespesa />
       </GenericModal>
     </>
   );
