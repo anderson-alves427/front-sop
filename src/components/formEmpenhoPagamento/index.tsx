@@ -9,7 +9,7 @@ interface FormDespesaProps {
     id: string;
     numero: string;
     data: string;
-    valor: string;
+    valor: number;
     observacao: string;
   };
 }
@@ -35,12 +35,12 @@ export default function FormEmpenhoPagamento({ params }: FormDespesaProps) {
 
   return (
     <Form layout="vertical" form={form} onFinish={onFinish}>
-      <Form.Item label="Valor da despesa" name="valorDespesa">
+      <Form.Item label="Valor" name="valor">
         <InputNumber />
       </Form.Item>
-      <Form.Item label="Data do empenho" name="dataEmepenho">
+      {/* <Form.Item label="Data" name="data">
         <DatePicker />
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item
         label="Observação"
         name="observacao"

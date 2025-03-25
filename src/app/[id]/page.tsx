@@ -1,5 +1,7 @@
 import ButtonOpenGenericModal from "@/components/buttonOpenGenericModal";
 import FormEmpenhoPagamento from "@/components/formEmpenhoPagamento";
+import ListEmpenho from "@/components/ListEmpenho";
+import { empenhoMock } from "@/mocks/empenhoMock";
 import { Divider } from "antd";
 
 export default function Empenho() {
@@ -22,6 +24,7 @@ export default function Empenho() {
         </ButtonOpenGenericModal>
       </div>
       <Divider />
+      <ListEmpenho empenho={empenhoMock} />
     </div>
   );
 }
