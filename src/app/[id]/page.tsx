@@ -2,9 +2,22 @@ import ButtonOpenGenericModal from "@/components/buttonOpenGenericModal";
 import FormEmpenhoPagamento from "@/components/formEmpenhoPagamento";
 import ListEmpenho from "@/components/ListEmpenho";
 import { empenhoMock } from "@/mocks/empenhoMock";
+import { getEmpenhosByDespesaId } from "@/services/getEmpenhosByDespesaId/getEmpenhosByDespesaId.service";
 import { Divider } from "antd";
 
-export default function Empenho() {
+interface EmpenhoProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+export default async function Empenho({ params }: EmpenhoProps) {
+  const { id } = await params;
+
+  const empenhos = await getEmpenhosByDespesaId(id);
+
+  console.log('==empenhos==>', empenhos)
+
   return (
     <div className="bg-white shadow-md rounded-lg py-3 px-2">
       <div className="flex justify-between">
