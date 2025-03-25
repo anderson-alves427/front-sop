@@ -35,8 +35,8 @@ export default function ListDespesa({ despesas }: ListDespesaProps) {
     },
     {
       title: "Credor",
-      dataIndex: "credorDespesa",
-      key: "credorDespesa",
+      dataIndex: "credor",
+      key: "credor",
       render: (text) => <a>{text}</a>,
     },
     {
@@ -47,8 +47,8 @@ export default function ListDespesa({ despesas }: ListDespesaProps) {
     },
     {
       title: "Valor",
-      dataIndex: "valorDespesa",
-      key: "valorDespesa",
+      dataIndex: "valor",
+      key: "valor",
       render: (text) => <a>{text}</a>,
     },
     {

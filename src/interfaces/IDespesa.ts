@@ -1,11 +1,11 @@
 export interface IDespesa {
   id: string;
   numeroProtocolo: string;
-  credorDespesa: string;
+  credor: string;
   tipoDespesa: "OBRAS_EDIFICACAO" | "OBRAS_RODOVIAS" | "OUTROS";
   dataProtocolo: string;
   dataVencimento: string;
-  valorDespesa: number;
+  valor: number;
   descricao: string;
-  status: string;
+  status: string | null;
 }

@@ -18,7 +18,7 @@ export default function FormEmpenhoPagamento({ params }: FormDespesaProps) {
   const [form] = Form.useForm();
 
   const onFinish = (values: IDespesa) => {
-    console.log(values.valorDespesa);
+    console.log(values.valor);
   };
 
   useEffect(() => {

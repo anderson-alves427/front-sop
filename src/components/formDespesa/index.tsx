@@ -14,7 +14,7 @@ export default function FormDespesa({ despesa }: FormDespesaProps) {
   const [form] = Form.useForm();
 
   const onFinish = (values: IDespesa) => {
-    console.log(values.valorDespesa);
+    console.log(values.valor);
   };
 
   useEffect(() => {
@@ -22,11 +22,11 @@ export default function FormDespesa({ despesa }: FormDespesaProps) {
       form.setFieldsValue({
         id: despesa.id,
         numeroProtocolo: despesa.numeroProtocolo,
-        credorDespesa: despesa.credorDespesa,
+        credor: despesa.credor,
         tipoDespesa: despesa.tipoDespesa,
         dataProtocolo: despesa.dataProtocolo,
         dataVencimento: despesa.dataVencimento,
-        valorDespesa: despesa.valorDespesa,
+        valor: despesa.valor,
         descricao: despesa.descricao,
         status: despesa.status,
       });
@@ -45,7 +45,7 @@ export default function FormDespesa({ despesa }: FormDespesaProps) {
         <Input />
       </Form.Item>
       <Form.Item
-        name="credorDespesa"
+        name="credor"
         label="Credor da despesa"
         rules={[
           {
@@ -56,7 +56,7 @@ export default function FormDespesa({ despesa }: FormDespesaProps) {
       >
         <Input />
       </Form.Item>
-      <Form.Item label="Valor da despesa" name="valorDespesa">
+      <Form.Item label="Valor da despesa" name="valor">
         <InputNumber />
       </Form.Item>
       <Form.Item

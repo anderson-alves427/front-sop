@@ -1,10 +1,13 @@
 import ButtonOpenGenericModal from "@/components/buttonOpenGenericModal";
 import FormDespesa from "@/components/formDespesa";
 import ListDespesa from "@/components/listDespesa";
-import { despesasMock } from "@/mocks/despesasMock";
+import { getDespesas } from "@/services/getDespesas/getDespesas.service";
+
 import { Divider } from "antd";
 
-export default function Despesa() {
+export default async function Despesa() {
+  const despesas = await getDespesas();
+
   return (
     <div className="bg-white shadow-md rounded-lg py-3 px-2">
       <div className="flex justify-between">
@@ -19,7 +22,7 @@ export default function Despesa() {
         </ButtonOpenGenericModal>
       </div>
       <Divider />
-      <ListDespesa despesas={despesasMock} />
+      <ListDespesa despesas={despesas} />
     </div>
   );
 }
