@@ -5,6 +5,7 @@ import { Space, Table, TableProps } from "antd";
 import { useState } from "react";
 import GenericModal from "../genericModal";
 import FormDespesa from "../formDespesa";
+import Link from "next/link";
 
 interface ListDespesaProps {
   despesas: IDespesa[];
@@ -61,7 +62,7 @@ export default function ListDespesa({ despesas }: ListDespesaProps) {
       key: "action",
       render: (_, row) => (
         <Space size="middle">
-          <a>Empenhos</a>
+          <Link href={row.id}>Empenho</Link>
           <a onClick={() => handleClickEditDespesa(row)}>Editar</a>
           <a onClick={() => handleClickDeleteDespesa(row)}>Deletar</a>
         </Space>
