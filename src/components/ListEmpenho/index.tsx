@@ -95,7 +95,7 @@ export default function ListEmpenho({ empenho, despesaId }: ListEmpenhoProps) {
         handleClose={() => setIsOpenModalDelete(false)}
         onOk={handleClickConfirmDeleteEmpenho}
       >
-        <div>{`Você tem certeza que deseja deletar a depesa de número de empenho ${
+        <div>{`Você tem certeza que deseja deletar o empenho de número ${
           selectedEmpenho?.numeroEmpenho || ""
         }?`}</div>
       </GenericModal>

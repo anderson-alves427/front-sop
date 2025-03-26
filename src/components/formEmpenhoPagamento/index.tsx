@@ -59,7 +59,7 @@ export default function FormEmpenhoPagamento({
       form.setFieldsValue({
         id: params.id,
         numero: params.numero,
-        data: params.data,
+        data: dayjs(params.data),
         valor: params.valor,
         observacao: params.observacao,
       });
