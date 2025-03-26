@@ -13,7 +13,7 @@ interface ListEmpenhoProps {
   despesaId: string;
 }
 
-export default function ListEmpenho({ empenho, despesaId }: ListEmpenhoProps) {
+export default function ListPagamento({ empenho, despesaId }: ListEmpenhoProps) {
   const [selectedEmpenho, setSelectedEmpenho] = useState<IEmpenho>();
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);

@@ -17,8 +17,9 @@ type ParamsPagamentoEmpenho = {
 interface FormDespesaProps {
   params?: ParamsPagamentoEmpenho;
   onSuccess: () => void;
-  despesaId: string;
+  despesaId?: string;
   type: "pagamento" | "empenho";
+  empenhoId?: string;
 }
 
 export default function FormEmpenhoPagamento({
@@ -26,12 +27,13 @@ export default function FormEmpenhoPagamento({
   onSuccess,
   despesaId,
   type,
+  empenhoId,
 }: FormDespesaProps) {
   const [form] = Form.useForm();
 
   const onFinish = async (values: Omit<ParamsPagamentoEmpenho, "id">) => {
     try {
-      if (type === "empenho") {
+      if (type === "empenho" && despesaId) {
         const paramsEmpenho: CreateEmpenhoDTO = {
           dataEmpenho: dayjs(values.data).format("YYYY-MM-DD"),
           despesaId: despesaId,

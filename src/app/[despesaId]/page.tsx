@@ -5,14 +5,14 @@ import { Divider } from "antd";
 
 interface EmpenhoProps {
   params: Promise<{
-    id: string;
+    despesaId: string;
   }>;
 }
 
 export default async function Empenho({ params }: EmpenhoProps) {
-  const { id } = await params;
+  const { despesaId } = await params;
 
-  const empenhos = await getEmpenhosByDespesaId(id);
+  const empenhos = await getEmpenhosByDespesaId(despesaId);
 
   return (
     <div className="bg-white shadow-md rounded-lg py-3 px-2">
@@ -20,7 +20,7 @@ export default async function Empenho({ params }: EmpenhoProps) {
         <div className="flex gap-3">
           <p className="text-gray-400 font-semibold text-sm">
             Identificador da despesa:{" "}
-            <span className="text-gray-700">{id}</span>
+            <span className="text-gray-700">{despesaId}</span>
           </p>
           <p className="text-gray-400  font-semibold text-sm">
             Total de empenhos:{" "}
@@ -30,12 +30,12 @@ export default async function Empenho({ params }: EmpenhoProps) {
         <AddNewEmpenhoPagamento
           buttonLabel="Adicionar Novo Empenho"
           title="Criar Novo Empenho"
-          despesaId={id}
+          despesaId={despesaId}
           type="empenho"
         />
       </div>
       <Divider />
-      <ListEmpenho empenho={empenhos} despesaId={id} />
+      <ListEmpenho empenho={empenhos} despesaId={despesaId} />
     </div>
   );
 }

@@ -8,7 +8,8 @@ import FormEmpenhoPagamento from "../formEmpenhoPagamento";
 interface AddNewEmpenhoPagamentoProps {
   buttonLabel: string;
   title: string;
-  despesaId: string;
+  despesaId?: string;
+  empenhoId?: string;
   type: "pagamento" | "empenho";
 }
 
@@ -17,6 +18,7 @@ export default function AddNewEmpenhoPagamento({
   title,
   despesaId,
   type,
+  empenhoId,
 }: AddNewEmpenhoPagamentoProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -32,6 +34,7 @@ export default function AddNewEmpenhoPagamento({
         <FormEmpenhoPagamento
           onSuccess={() => setIsModalOpen(false)}
           despesaId={despesaId}
+          empenhoId={empenhoId}
           type={type}
         />
       </GenericModal>
