@@ -6,12 +6,14 @@ import Link from "next/link";
 import { useState } from "react";
 import GenericModal from "../genericModal";
 import FormEmpenhoPagamento from "../formEmpenhoPagamento";
+import { deleteEmpenho } from "@/services/deleteEmpenho/deleteEmpenho.service";
 
 interface ListEmpenhoProps {
   empenho: IEmpenho[];
+  despesaId: string;
 }
 
-export default function ListEmpenho({ empenho }: ListEmpenhoProps) {
+export default function ListEmpenho({ empenho, despesaId }: ListEmpenhoProps) {
   const [selectedEmpenho, setSelectedEmpenho] = useState<IEmpenho>();
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
@@ -24,6 +26,20 @@ export default function ListEmpenho({ empenho }: ListEmpenhoProps) {
   const handleClickDeleteEmpenho = (empenho: IEmpenho) => {
     setSelectedEmpenho(empenho);
     setIsOpenModalDelete(true);
+  };
+
+  const handleClickConfirmDeleteEmpenho = async () => {
+    if (!selectedEmpenho) {
+      console.log("Selecione um empenho");
+      setSelectedEmpenho(undefined);
+      return;
+    }
+    try {
+      await deleteEmpenho(selectedEmpenho.id, despesaId);
+      setIsOpenModalDelete(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const columns: TableProps<IEmpenho>["columns"] = [
@@ -77,6 +93,7 @@ export default function ListEmpenho({ empenho }: ListEmpenhoProps) {
         title="Deletar empenho"
         isModalOpen={isOpenModalDelete}
         handleClose={() => setIsOpenModalDelete(false)}
+        onOk={handleClickConfirmDeleteEmpenho}
       >
         <div>{`Você tem certeza que deseja deletar a depesa de número de empenho ${
           selectedEmpenho?.numeroEmpenho || ""
@@ -100,6 +117,12 @@ export default function ListEmpenho({ empenho }: ListEmpenhoProps) {
                 }
               : undefined
           }
+          despesaId={despesaId}
+          type="empenho"
+          onSuccess={() => {
+            setIsOpenModalEdit(false);
+            setSelectedEmpenho(undefined);
+          }}
         />
       </GenericModal>
     </>

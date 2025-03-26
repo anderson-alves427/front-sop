@@ -19,7 +19,8 @@ export default async function Empenho({ params }: EmpenhoProps) {
       <div className="flex justify-between">
         <div className="flex gap-3">
           <p className="text-gray-400 font-semibold text-sm">
-            Protocolo da despesa: <span className="text-gray-700">1555</span>
+            Identificador da despesa:{" "}
+            <span className="text-gray-700">{id}</span>
           </p>
           <p className="text-gray-400  font-semibold text-sm">
             Total de empenhos:{" "}
@@ -34,7 +35,7 @@ export default async function Empenho({ params }: EmpenhoProps) {
         />
       </div>
       <Divider />
-      <ListEmpenho empenho={empenhos} />
+      <ListEmpenho empenho={empenhos} despesaId={id} />
     </div>
   );
 }
