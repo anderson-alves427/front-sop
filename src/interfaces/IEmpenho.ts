@@ -1,7 +1,8 @@
 export interface IEmpenho {
   id: string;
   numeroEmpenho: string;
-  dataEmepenho: string;
+  dataEmpenho: string;
   valorEmpenho: number;
   observacao: string;
+  despesaId: string;
 }

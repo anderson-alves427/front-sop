@@ -5,23 +5,17 @@ import { useState } from "react";
 import GenericModal from "../genericModal";
 import FormDespesa from "../formDespesa";
 
-interface ButtonOpenGenericModalProps {
-  buttonLabel: string;
-  titleModal: string;
-}
-
-export default function AddNewDespesa({
-  buttonLabel,
-  titleModal,
-}: ButtonOpenGenericModalProps) {
+export default function AddNewDespesa() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setIsModalOpen(true)}>{buttonLabel}</Button>
+      <Button onClick={() => setIsModalOpen(true)}>
+        Adicionar Nova Despesa
+      </Button>
       <GenericModal
         handleClose={() => setIsModalOpen(false)}
         isModalOpen={isModalOpen}
-        title={titleModal}
+        title="Criar Nova Despesa"
         footer
       >
         <FormDespesa

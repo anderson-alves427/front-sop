@@ -1,24 +1,57 @@
 "use client";
 
-import { IDespesa } from "@/interfaces/IDespesa";
+import { CreateEmpenhoDTO } from "@/services/createEmpenho/createEmpenho.dto";
+import { createEmpenho } from "@/services/createEmpenho/createEmpenho.service";
 import { Button, DatePicker, Form, Input, InputNumber } from "antd";
+import dayjs from "dayjs";
 import { useEffect } from "react";
 
+type ParamsPagamentoEmpenho = {
+  id: string;
+  numero: string;
+  data: string;
+  valor: number;
+  observacao: string;
+};
+
 interface FormDespesaProps {
-  params?: {
-    id: string;
-    numero: string;
-    data: string;
-    valor: number;
-    observacao: string;
-  };
+  params?: ParamsPagamentoEmpenho;
+  onSuccess: () => void;
+  despesaId: string;
+  type: "pagamento" | "empenho";
 }
 
-export default function FormEmpenhoPagamento({ params }: FormDespesaProps) {
+export default function FormEmpenhoPagamento({
+  params,
+  onSuccess,
+  despesaId,
+  type,
+}: FormDespesaProps) {
   const [form] = Form.useForm();
 
-  const onFinish = (values: IDespesa) => {
-    console.log(values.valor);
+  const onFinish = async (values: Omit<ParamsPagamentoEmpenho, "id">) => {
+    try {
+      if (type === "empenho") {
+        const paramsEmpenho: CreateEmpenhoDTO = {
+          dataEmpenho: dayjs(values.data).format("YYYY-MM-DD"),
+          despesaId: despesaId,
+          numeroEmpenho: values.numero,
+          observacao: values.observacao,
+          valorEmpenho: values.valor,
+        };
+        if (params) {
+          // await updateDespesa(despesa.id, params);
+          // onSuccess();
+          // return;
+        }
+
+        await createEmpenho(paramsEmpenho);
+      }
+
+      onSuccess();
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   useEffect(() => {
@@ -38,9 +71,9 @@ export default function FormEmpenhoPagamento({ params }: FormDespesaProps) {
       <Form.Item label="Valor" name="valor">
         <InputNumber />
       </Form.Item>
-      {/* <Form.Item label="Data" name="data">
+      <Form.Item label="Data" name="data">
         <DatePicker />
-      </Form.Item> */}
+      </Form.Item>
       <Form.Item
         label="Observação"
         name="observacao"

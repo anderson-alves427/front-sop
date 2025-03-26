@@ -1,5 +1,5 @@
+import AddNewEmpenhoPagamento from "@/components/addNewEmpenhoPagamento";
 import ListEmpenho from "@/components/ListEmpenho";
-import { empenhoMock } from "@/mocks/empenhoMock";
 import { getEmpenhosByDespesaId } from "@/services/getEmpenhosByDespesaId/getEmpenhosByDespesaId.service";
 import { Divider } from "antd";
 
@@ -14,8 +14,6 @@ export default async function Empenho({ params }: EmpenhoProps) {
 
   const empenhos = await getEmpenhosByDespesaId(id);
 
-  console.log("==empenhos==>", empenhos);
-
   return (
     <div className="bg-white shadow-md rounded-lg py-3 px-2">
       <div className="flex justify-between">
@@ -24,18 +22,19 @@ export default async function Empenho({ params }: EmpenhoProps) {
             Protocolo da despesa: <span className="text-gray-700">1555</span>
           </p>
           <p className="text-gray-400  font-semibold text-sm">
-            Total de empenhos: <span className="text-gray-700">1555</span>
+            Total de empenhos:{" "}
+            <span className="text-gray-700">{empenhos.length}</span>
           </p>
         </div>
-        {/* <ButtonOpenGenericModal
+        <AddNewEmpenhoPagamento
           buttonLabel="Adicionar Novo Empenho"
-          titleModal="Criar Novo Empenho"
-        >
-          <FormEmpenhoPagamento />
-        </ButtonOpenGenericModal> */}
+          title="Criar Novo Empenho"
+          despesaId={id}
+          type="empenho"
+        />
       </div>
       <Divider />
-      <ListEmpenho empenho={empenhoMock} />
+      <ListEmpenho empenho={empenhos} />
     </div>
   );
 }

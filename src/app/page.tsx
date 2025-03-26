@@ -14,10 +14,7 @@ export default async function Despesa() {
           Total de despesas:{" "}
           <span className="text-gray-700">{despesas.length}</span>
         </p>
-        <AddNewDespesa
-          buttonLabel="Adicionar nova despesa"
-          titleModal="Criar Nova Despesa"
-        />
+        <AddNewDespesa />
       </div>
       <Divider />
       <ListDespesa despesas={despesas || []} />

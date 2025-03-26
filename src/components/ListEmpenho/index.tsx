@@ -93,7 +93,7 @@ export default function ListEmpenho({ empenho }: ListEmpenhoProps) {
             selectedEmpenho
               ? {
                   id: selectedEmpenho?.id,
-                  data: selectedEmpenho?.dataEmepenho,
+                  data: selectedEmpenho?.dataEmpenho,
                   numero: selectedEmpenho?.numeroEmpenho,
                   observacao: selectedEmpenho?.observacao,
                   valor: selectedEmpenho?.valorEmpenho,
