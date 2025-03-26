@@ -24,7 +24,11 @@ export default function AddNewDespesa({
         title={titleModal}
         footer
       >
-        <FormDespesa onSuccess={() => setIsModalOpen(false)} />
+        <FormDespesa
+          onSuccess={() => {
+            setIsModalOpen(false);
+          }}
+        />
       </GenericModal>
     </>
   );

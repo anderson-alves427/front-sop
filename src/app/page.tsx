@@ -1,5 +1,4 @@
-import ButtonOpenGenericModal from "@/components/addNewDespesa";
-import FormDespesa from "@/components/formDespesa";
+import AddNewDespesa from "@/components/addNewDespesa";
 import ListDespesa from "@/components/listDespesa";
 import { getDespesas } from "@/services/getDespesas/getDespesas.service";
 
@@ -15,12 +14,10 @@ export default async function Despesa() {
           Total de despesas:{" "}
           <span className="text-gray-700">{despesas.length}</span>
         </p>
-        <ButtonOpenGenericModal
+        <AddNewDespesa
           buttonLabel="Adicionar nova despesa"
           titleModal="Criar Nova Despesa"
-        >
-          <FormDespesa onSuccess={() => console.log("===>")} />
-        </ButtonOpenGenericModal>
+        />
       </div>
       <Divider />
       <ListDespesa despesas={despesas || []} />

@@ -1,5 +1,3 @@
-import ButtonOpenGenericModal from "@/components/addNewDespesa";
-import FormEmpenhoPagamento from "@/components/formEmpenhoPagamento";
 import ListEmpenho from "@/components/ListEmpenho";
 import { empenhoMock } from "@/mocks/empenhoMock";
 import { getEmpenhosByDespesaId } from "@/services/getEmpenhosByDespesaId/getEmpenhosByDespesaId.service";
@@ -16,7 +14,7 @@ export default async function Empenho({ params }: EmpenhoProps) {
 
   const empenhos = await getEmpenhosByDespesaId(id);
 
-  console.log('==empenhos==>', empenhos)
+  console.log("==empenhos==>", empenhos);
 
   return (
     <div className="bg-white shadow-md rounded-lg py-3 px-2">
