@@ -1,6 +1,8 @@
 "use client";
 
 import { IDespesa } from "@/interfaces/IDespesa";
+import { createDespesa } from "@/services/createDespesa/createDespesa.service";
+import { updateDespesa } from "@/services/updateDespesa/updateDespesa.service";
 import { Button, DatePicker, Form, Input, InputNumber, Select } from "antd";
 import dayjs from "dayjs";
 import { useEffect } from "react";
@@ -14,9 +16,22 @@ interface FormDespesaProps {
 export default function FormDespesa({ despesa }: FormDespesaProps) {
   const [form] = Form.useForm();
 
-  const onFinish = (values: IDespesa) => {
-    const formattedDate = dayjs(values.dataProtocolo).format("YYYY-MM-DD");
-    console.log(formattedDate);
+  const onFinish = async (values: IDespesa) => {
+    const params = {
+      ...values,
+      dataVencimento: dayjs(values.dataVencimento).format("YYYY-MM-DD"),
+    };
+
+    try {
+      if (despesa) {
+        await updateDespesa(despesa.id, params);
+
+        return;
+      }
+      await createDespesa(params);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   useEffect(() => {
