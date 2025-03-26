@@ -2,6 +2,8 @@
 
 import { CreateEmpenhoDTO } from "@/services/createEmpenho/createEmpenho.dto";
 import { createEmpenho } from "@/services/createEmpenho/createEmpenho.service";
+import { CreatePagamentoDTO } from "@/services/createPagamento/createPagamento.dto";
+import { createPagamento } from "@/services/createPagamento/createPagamento.service";
 import { Button, DatePicker, Form, Input, InputNumber } from "antd";
 import dayjs from "dayjs";
 import { useEffect } from "react";
@@ -32,6 +34,7 @@ export default function FormEmpenhoPagamento({
   const [form] = Form.useForm();
 
   const onFinish = async (values: Omit<ParamsPagamentoEmpenho, "id">) => {
+    console.log(type, despesaId, empenhoId);
     try {
       if (type === "empenho" && despesaId) {
         const paramsEmpenho: CreateEmpenhoDTO = {
@@ -43,14 +46,33 @@ export default function FormEmpenhoPagamento({
         };
         if (params) {
           // await updateDespesa(despesa.id, params);
-          // onSuccess();
-          // return;
+          onSuccess();
+          return;
         }
 
         await createEmpenho(paramsEmpenho);
+        onSuccess();
+        return;
       }
 
-      onSuccess();
+      if (type === "pagamento" && empenhoId && despesaId) {
+        const paramsPagamento: CreatePagamentoDTO = {
+          dataPagamento: dayjs(values.data).format("YYYY-MM-DD"),
+          empenhoId: empenhoId,
+          numeroPagamento: values.numero,
+          observacao: values.observacao,
+          valorPagamento: values.valor,
+        };
+        if (params) {
+          // await updateDespesa(despesa.id, params);
+          onSuccess();
+          return;
+        }
+
+        await createPagamento(paramsPagamento, despesaId);
+        onSuccess();
+        return;
+      }
     } catch (error) {
       console.log("error", error);
     }

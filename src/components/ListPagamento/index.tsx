@@ -1,65 +1,70 @@
 "use client";
 
-import { IEmpenho } from "@/interfaces/IEmpenho";
 import { Space, Table, TableProps } from "antd";
-import Link from "next/link";
 import { useState } from "react";
 import GenericModal from "../genericModal";
+import { deletePagamento } from "@/services/deletePagamento/deletePagamento.service";
+import dayjs from "dayjs";
+import { IPagamento } from "@/interfaces/IPagamento";
 import FormEmpenhoPagamento from "../formEmpenhoPagamento";
-import { deleteEmpenho } from "@/services/deleteEmpenho/deleteEmpenho.service";
 
-interface ListEmpenhoProps {
-  empenho: IEmpenho[];
+interface ListPagamentoProps {
+  pagamento: IPagamento[];
+  empenhoId: string;
   despesaId: string;
 }
 
-export default function ListPagamento({ empenho, despesaId }: ListEmpenhoProps) {
-  const [selectedEmpenho, setSelectedEmpenho] = useState<IEmpenho>();
+export default function ListPagamento({
+  pagamento,
+  empenhoId,
+  despesaId,
+}: ListPagamentoProps) {
+  const [selectedPagamento, setSelectedPagamento] = useState<IPagamento>();
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
 
-  const handleClickEditEmpenho = (empenho: IEmpenho) => {
-    setSelectedEmpenho(empenho);
+  const handleClickEditPagamento = (empenho: IPagamento) => {
+    setSelectedPagamento(empenho);
     setIsOpenModalEdit(true);
   };
 
-  const handleClickDeleteEmpenho = (empenho: IEmpenho) => {
-    setSelectedEmpenho(empenho);
+  const handleClickDeletePagamento = (empenho: IPagamento) => {
+    setSelectedPagamento(empenho);
     setIsOpenModalDelete(true);
   };
 
-  const handleClickConfirmDeleteEmpenho = async () => {
-    if (!selectedEmpenho) {
-      console.log("Selecione um empenho");
-      setSelectedEmpenho(undefined);
+  const handleClickConfirmDeletePagamento = async () => {
+    if (!selectedPagamento) {
+      console.log("Selecione uma opção para deletar");
+      setSelectedPagamento(undefined);
       return;
     }
     try {
-      await deleteEmpenho(selectedEmpenho.id, despesaId);
+      await deletePagamento(selectedPagamento.id, despesaId, empenhoId);
       setIsOpenModalDelete(false);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const columns: TableProps<IEmpenho>["columns"] = [
+  const columns: TableProps<IPagamento>["columns"] = [
     {
-      title: "Número do empenho",
-      dataIndex: "numeroEmpenho",
-      key: "numeroEmpenho",
+      title: "Número do pagamento",
+      dataIndex: "numeroPagamento",
+      key: "numeroPagamento",
       render: (text) => <a>{text}</a>,
     },
     {
       title: "Valor",
-      dataIndex: "valorEmpenho",
-      key: "valorEmpenho",
+      dataIndex: "valorPagamento",
+      key: "valorPagamento",
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Data do Empenho",
-      dataIndex: "tipoEmpenho",
-      key: "tipoEmpenho",
-      render: (text) => <a>{text}</a>,
+      title: "Data do Pagamento",
+      dataIndex: "dataPagamento",
+      key: "dataPagamento",
+      render: (text) => <a>{dayjs(text).format("DD/MM/YYYY")}</a>,
     },
     {
       title: "Observacao",
@@ -73,9 +78,8 @@ export default function ListPagamento({ empenho, despesaId }: ListEmpenhoProps) 
       key: "action",
       render: (_, row) => (
         <Space size="middle">
-          <Link href={`${despesaId}/${row.id}`}>Pagamento</Link>
-          <a onClick={() => handleClickEditEmpenho(row)}>Editar</a>
-          <a onClick={() => handleClickDeleteEmpenho(row)}>Deletar</a>
+          <a onClick={() => handleClickEditPagamento(row)}>Editar</a>
+          <a onClick={() => handleClickDeletePagamento(row)}>Deletar</a>
         </Space>
       ),
     },
@@ -83,20 +87,20 @@ export default function ListPagamento({ empenho, despesaId }: ListEmpenhoProps) 
 
   return (
     <>
-      <Table<IEmpenho>
+      <Table<IPagamento>
         columns={columns}
-        dataSource={empenho}
-        rowKey="numeroEmpenho"
+        dataSource={pagamento}
+        rowKey="numeroPagamento"
       />
 
       <GenericModal
-        title="Deletar empenho"
+        title="Deletar pagamento"
         isModalOpen={isOpenModalDelete}
         handleClose={() => setIsOpenModalDelete(false)}
-        onOk={handleClickConfirmDeleteEmpenho}
+        onOk={handleClickConfirmDeletePagamento}
       >
-        <div>{`Você tem certeza que deseja deletar o empenho de número ${
-          selectedEmpenho?.numeroEmpenho || ""
+        <div>{`Você tem certeza que deseja deletar o pagamento de número ${
+          selectedPagamento?.numeroPagamento || ""
         }?`}</div>
       </GenericModal>
       <GenericModal
@@ -107,21 +111,22 @@ export default function ListPagamento({ empenho, despesaId }: ListEmpenhoProps) 
       >
         <FormEmpenhoPagamento
           params={
-            selectedEmpenho
+            selectedPagamento
               ? {
-                  id: selectedEmpenho?.id,
-                  data: selectedEmpenho?.dataEmpenho,
-                  numero: selectedEmpenho?.numeroEmpenho,
-                  observacao: selectedEmpenho?.observacao,
-                  valor: selectedEmpenho?.valorEmpenho,
+                  id: selectedPagamento?.id,
+                  data: selectedPagamento?.dataPagamento,
+                  numero: selectedPagamento?.numeroPagamento,
+                  observacao: selectedPagamento?.observacao,
+                  valor: selectedPagamento?.valorPagamento,
                 }
               : undefined
           }
+          type="pagamento"
+          empenhoId={empenhoId}
           despesaId={despesaId}
-          type="empenho"
           onSuccess={() => {
             setIsOpenModalEdit(false);
-            setSelectedEmpenho(undefined);
+            setSelectedPagamento(undefined);
           }}
         />
       </GenericModal>

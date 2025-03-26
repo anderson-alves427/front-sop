@@ -7,6 +7,7 @@ import { useState } from "react";
 import GenericModal from "../genericModal";
 import FormEmpenhoPagamento from "../formEmpenhoPagamento";
 import { deleteEmpenho } from "@/services/deleteEmpenho/deleteEmpenho.service";
+import dayjs from "dayjs";
 
 interface ListEmpenhoProps {
   empenho: IEmpenho[];
@@ -57,9 +58,9 @@ export default function ListEmpenho({ empenho, despesaId }: ListEmpenhoProps) {
     },
     {
       title: "Data do Empenho",
-      dataIndex: "tipoEmpenho",
-      key: "tipoEmpenho",
-      render: (text) => <a>{text}</a>,
+      dataIndex: "dataEmpenho",
+      key: "dataEmpenho",
+      render: (text) => <a>{dayjs(text).format("DD/MM/YYYY")}</a>,
     },
     {
       title: "Observacao",

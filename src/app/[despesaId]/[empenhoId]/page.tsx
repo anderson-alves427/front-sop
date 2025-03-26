@@ -1,4 +1,5 @@
 import AddNewEmpenhoPagamento from "@/components/addNewEmpenhoPagamento";
+import ListPagamento from "@/components/ListPagamento";
 import { getPagamentosByEmepenhoId } from "@/services/getPagamentosByEmpenhoId/getPagamentosByEmpenhoId.service";
 import { Divider } from "antd";
 
@@ -33,11 +34,16 @@ export default async function Pagamento({ params }: EmpenhoProps) {
           buttonLabel="Adicionar Novo Pagamento"
           title="Criar Novo Pagamento"
           despesaId={despesaId}
-          type="empenho"
+          empenhoId={empenhoId}
+          type="pagamento"
         />
       </div>
       <Divider />
-      {/* <ListEmpenho empenho={pagamentos} despesaId={despesaId} /> */}
+      <ListPagamento
+        pagamento={pagamentos}
+        despesaId={despesaId}
+        empenhoId={empenhoId}
+      />
     </div>
   );
 }
