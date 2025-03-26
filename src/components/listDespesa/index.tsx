@@ -109,7 +109,10 @@ export default function ListDespesa({ despesas }: ListDespesaProps) {
         title="Editar"
         footer
       >
-        <FormDespesa despesa={selectedDespesa} />
+        <FormDespesa
+          despesa={selectedDespesa}
+          onSuccess={() => setIsOpenModalEdit(false)}
+        />
       </GenericModal>
     </>
   );

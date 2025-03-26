@@ -1,4 +1,4 @@
-import ButtonOpenGenericModal from "@/components/buttonOpenGenericModal";
+import ButtonOpenGenericModal from "@/components/addNewDespesa";
 import FormDespesa from "@/components/formDespesa";
 import ListDespesa from "@/components/listDespesa";
 import { getDespesas } from "@/services/getDespesas/getDespesas.service";
@@ -19,7 +19,7 @@ export default async function Despesa() {
           buttonLabel="Adicionar nova despesa"
           titleModal="Criar Nova Despesa"
         >
-          <FormDespesa />
+          <FormDespesa onSuccess={() => console.log("===>")} />
         </ButtonOpenGenericModal>
       </div>
       <Divider />

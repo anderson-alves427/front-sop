@@ -11,9 +11,10 @@ const { Option } = Select;
 
 interface FormDespesaProps {
   despesa?: IDespesa;
+  onSuccess: () => void;
 }
 
-export default function FormDespesa({ despesa }: FormDespesaProps) {
+export default function FormDespesa({ despesa, onSuccess }: FormDespesaProps) {
   const [form] = Form.useForm();
 
   const onFinish = async (values: IDespesa) => {
@@ -25,10 +26,11 @@ export default function FormDespesa({ despesa }: FormDespesaProps) {
     try {
       if (despesa) {
         await updateDespesa(despesa.id, params);
-
+        onSuccess();
         return;
       }
       await createDespesa(params);
+      onSuccess();
     } catch (error) {
       console.log("error", error);
     }

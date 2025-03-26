@@ -1,4 +1,4 @@
-import ButtonOpenGenericModal from "@/components/buttonOpenGenericModal";
+import ButtonOpenGenericModal from "@/components/addNewDespesa";
 import FormEmpenhoPagamento from "@/components/formEmpenhoPagamento";
 import ListEmpenho from "@/components/ListEmpenho";
 import { empenhoMock } from "@/mocks/empenhoMock";
@@ -29,12 +29,12 @@ export default async function Empenho({ params }: EmpenhoProps) {
             Total de empenhos: <span className="text-gray-700">1555</span>
           </p>
         </div>
-        <ButtonOpenGenericModal
+        {/* <ButtonOpenGenericModal
           buttonLabel="Adicionar Novo Empenho"
           titleModal="Criar Novo Empenho"
         >
           <FormEmpenhoPagamento />
-        </ButtonOpenGenericModal>
+        </ButtonOpenGenericModal> */}
       </div>
       <Divider />
       <ListEmpenho empenho={empenhoMock} />

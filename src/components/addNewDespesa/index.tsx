@@ -1,19 +1,18 @@
 "use client";
 
 import { Button } from "antd";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import GenericModal from "../genericModal";
+import FormDespesa from "../formDespesa";
 
 interface ButtonOpenGenericModalProps {
   buttonLabel: string;
   titleModal: string;
-  children: ReactNode;
 }
 
-export default function ButtonOpenGenericModal({
+export default function AddNewDespesa({
   buttonLabel,
   titleModal,
-  children,
 }: ButtonOpenGenericModalProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
@@ -25,7 +24,7 @@ export default function ButtonOpenGenericModal({
         title={titleModal}
         footer
       >
-        {children}
+        <FormDespesa onSuccess={() => setIsModalOpen(false)} />
       </GenericModal>
     </>
   );
