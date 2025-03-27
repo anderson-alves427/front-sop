@@ -4,6 +4,7 @@ import { CreateEmpenhoDTO } from "@/services/createEmpenho/createEmpenho.dto";
 import { createEmpenho } from "@/services/createEmpenho/createEmpenho.service";
 import { CreatePagamentoDTO } from "@/services/createPagamento/createPagamento.dto";
 import { createPagamento } from "@/services/createPagamento/createPagamento.service";
+import { updateEmpenho } from "@/services/updateEmpenho/updateEmpenho.service";
 import { Button, DatePicker, Flex, Form, Input, InputNumber } from "antd";
 import dayjs from "dayjs";
 import { useEffect } from "react";
@@ -45,7 +46,11 @@ export default function FormEmpenhoPagamento({
           valorEmpenho: values.valor,
         };
         if (params) {
-          // await updateDespesa(despesa.id, params);
+          await updateEmpenho(params.id, {
+            dataEmpenho: paramsEmpenho.dataEmpenho,
+            observacao: paramsEmpenho.observacao,
+            despesaId,
+          });
           onSuccess();
           return;
         }
@@ -93,14 +98,15 @@ export default function FormEmpenhoPagamento({
   return (
     <Form layout="vertical" form={form} onFinish={onFinish}>
       <Flex gap={10}>
-        <Form.Item label="Valor" name="valor">
-          <InputNumber />
-        </Form.Item>
         {!params && (
-          <Form.Item label="Data" name="data">
-            <DatePicker />
+          <Form.Item label="Valor" name="valor">
+            <InputNumber />
           </Form.Item>
         )}
+
+        <Form.Item label="Data" name="data">
+          <DatePicker />
+        </Form.Item>
       </Flex>
       <Form.Item
         label="Observação"

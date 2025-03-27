@@ -1,13 +1,15 @@
 "use client";
 
 import { IEmpenho } from "@/interfaces/IEmpenho";
-import { Space, Table, TableProps } from "antd";
+import { Space, Table, TableProps, Tooltip } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 import GenericModal from "../genericModal";
 import FormEmpenhoPagamento from "../formEmpenhoPagamento";
 import { deleteEmpenho } from "@/services/deleteEmpenho/deleteEmpenho.service";
 import dayjs from "dayjs";
+import { CgDetailsMore } from "react-icons/cg";
+import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
 
 interface ListEmpenhoProps {
   empenho: IEmpenho[];
@@ -60,7 +62,9 @@ export default function ListEmpenho({ empenho, despesaId }: ListEmpenhoProps) {
       title: "Data do Empenho",
       dataIndex: "dataEmpenho",
       key: "dataEmpenho",
-      render: (text) => <a>{dayjs(text).format("DD/MM/YYYY")}</a>,
+      render: (text) => (
+        <p className="text-gray-600">{dayjs(text).format("DD/MM/YYYY")}</p>
+      ),
     },
     {
       title: "Observacao",
@@ -74,9 +78,26 @@ export default function ListEmpenho({ empenho, despesaId }: ListEmpenhoProps) {
       key: "action",
       render: (_, row) => (
         <Space size="middle">
-          <Link href={`${despesaId}/${row.id}`}>Pagamento</Link>
-          <a onClick={() => handleClickEditEmpenho(row)}>Editar</a>
-          <a onClick={() => handleClickDeleteEmpenho(row)}>Deletar</a>
+          <Tooltip title="Pagamentos">
+            <Link href={`${despesaId}/${row.id}`}>
+              <CgDetailsMore size={20} />
+            </Link>
+          </Tooltip>
+
+          <Tooltip title="Editar">
+            <MdOutlineEdit
+              onClick={() => handleClickEditEmpenho(row)}
+              size={20}
+            />
+          </Tooltip>
+
+          <Tooltip title="Apagar">
+            <MdOutlineDelete
+              onClick={() => handleClickDeleteEmpenho(row)}
+              size={20}
+              color="red"
+            />
+          </Tooltip>
         </Space>
       ),
     },
@@ -88,6 +109,7 @@ export default function ListEmpenho({ empenho, despesaId }: ListEmpenhoProps) {
         columns={columns}
         dataSource={empenho}
         rowKey="numeroEmpenho"
+        pagination={false}
       />
 
       <GenericModal
