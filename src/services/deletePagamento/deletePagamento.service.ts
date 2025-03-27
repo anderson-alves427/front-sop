@@ -1,6 +1,6 @@
 "use server";
 
-import axios from "axios";
+import { api } from "@/config/api";
 import { revalidatePath } from "next/cache";
 
 export async function deletePagamento(
@@ -8,6 +8,6 @@ export async function deletePagamento(
   despesaId: string,
   empenhoId: string
 ): Promise<void> {
-  await axios.delete("http://localhost:8080/pagamento/" + id);
+  await api.delete("pagamento/" + id);
   revalidatePath(`${despesaId}/${empenhoId}`);
 }

@@ -1,6 +1,6 @@
 "use server";
 
-import axios from "axios";
+import { api } from "@/config/api";
 import { revalidatePath } from "next/cache";
 
 export async function updatePagamento(
@@ -8,6 +8,6 @@ export async function updatePagamento(
   id: string,
   params: { observacao: string; dataPagamento: string; empenhoId: string }
 ): Promise<void> {
-  await axios.put("http://localhost:8080/pagamento/" + id, params);
+  await api.put("pagamento/" + id, params);
   revalidatePath(`${despesaId}/${params.empenhoId}`);
 }

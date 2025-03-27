@@ -1,9 +1,9 @@
 "use server";
 
-import axios from "axios";
+import { api } from "@/config/api";
 import { revalidatePath } from "next/cache";
 
 export async function deleteDespesa(id: string): Promise<void> {
-  await axios.delete("http://localhost:8080/despesa/" + id);
+  await api.delete("despesa/" + id);
   revalidatePath("/");
 }

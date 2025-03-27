@@ -1,12 +1,12 @@
 "use server";
 
-import axios from "axios";
 import { CreateDespesaInputDTO } from "./createDespesaInput.dto";
 import { revalidatePath } from "next/cache";
+import { api } from "@/config/api";
 
 export async function createDespesa(
   params: CreateDespesaInputDTO
 ): Promise<void> {
-  await axios.post("http://localhost:8080/despesa", params);
+  await api.post("despesa", params);
   revalidatePath("/");
 }
