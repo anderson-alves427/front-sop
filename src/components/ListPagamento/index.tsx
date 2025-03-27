@@ -1,12 +1,13 @@
 "use client";
 
-import { Space, Table, TableProps } from "antd";
+import { Space, Table, TableProps, Tooltip } from "antd";
 import { useState } from "react";
 import GenericModal from "../genericModal";
 import { deletePagamento } from "@/services/deletePagamento/deletePagamento.service";
 import dayjs from "dayjs";
 import { IPagamento } from "@/interfaces/IPagamento";
 import FormEmpenhoPagamento from "../formEmpenhoPagamento";
+import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
 
 interface ListPagamentoProps {
   pagamento: IPagamento[];
@@ -64,7 +65,9 @@ export default function ListPagamento({
       title: "Data do Pagamento",
       dataIndex: "dataPagamento",
       key: "dataPagamento",
-      render: (text) => <a>{dayjs(text).format("DD/MM/YYYY")}</a>,
+      render: (text) => (
+        <p className="text-gray-600">{dayjs(text).format("DD/MM/YYYY")}</p>
+      ),
     },
     {
       title: "Observacao",
@@ -78,8 +81,20 @@ export default function ListPagamento({
       key: "action",
       render: (_, row) => (
         <Space size="middle">
-          <a onClick={() => handleClickEditPagamento(row)}>Editar</a>
-          <a onClick={() => handleClickDeletePagamento(row)}>Deletar</a>
+          <Tooltip title="Editar">
+            <MdOutlineEdit
+              onClick={() => handleClickEditPagamento(row)}
+              size={20}
+            />
+          </Tooltip>
+
+          <Tooltip title="Apagar">
+            <MdOutlineDelete
+              onClick={() => handleClickDeletePagamento(row)}
+              size={20}
+              color="red"
+            />
+          </Tooltip>
         </Space>
       ),
     },
@@ -91,6 +106,7 @@ export default function ListPagamento({
         columns={columns}
         dataSource={pagamento}
         rowKey="numeroPagamento"
+        pagination={false}
       />
 
       <GenericModal
