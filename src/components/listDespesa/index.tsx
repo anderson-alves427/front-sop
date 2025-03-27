@@ -1,12 +1,14 @@
 "use client";
 
 import { IDespesa } from "@/interfaces/IDespesa";
-import { Space, Table, TableProps } from "antd";
+import { Space, Table, TableProps, Tooltip } from "antd";
 import { useState } from "react";
 import GenericModal from "../genericModal";
 import FormDespesa from "../formDespesa";
 import Link from "next/link";
 import { deleteDespesa } from "@/services/deleteDespesa/deleteDespesa.service";
+import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
+import { CgDetailsMore } from "react-icons/cg";
 
 interface ListDespesaProps {
   despesas: IDespesa[];
@@ -46,40 +48,57 @@ export default function ListDespesa({ despesas }: ListDespesaProps) {
       title: "Número de protocolo",
       dataIndex: "numeroProtocolo",
       key: "numeroProtocolo",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p className="text-gray-600">{text}</p>,
     },
     {
       title: "Credor",
       dataIndex: "credor",
       key: "credor",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p className="text-gray-600">{text}</p>,
     },
     {
       title: "Tipo",
       dataIndex: "tipoDespesa",
       key: "tipoDespesa",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p className="text-gray-600">{text.toLowerCase()}</p>,
     },
     {
       title: "Valor",
       dataIndex: "valor",
       key: "valor",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p className="text-gray-600">{text}</p>,
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p className="text-gray-600">{text.toLowerCase()}</p>,
     },
     {
       title: "Ações",
       key: "action",
       render: (_, row) => (
         <Space size="middle">
-          <Link href={row.id}>Empenho</Link>
-          <a onClick={() => handleClickEditDespesa(row)}>Editar</a>
-          <a onClick={() => handleClickDeleteDespesa(row)}>Deletar</a>
+          <Tooltip title="Empenhos">
+            <Link href={row.id}>
+              <CgDetailsMore size={20} />
+            </Link>
+          </Tooltip>
+
+          <Tooltip title="Editar">
+            <MdOutlineEdit
+              onClick={() => handleClickEditDespesa(row)}
+              size={20}
+            />
+          </Tooltip>
+
+          <Tooltip title="Apagar">
+            <MdOutlineDelete
+              onClick={() => handleClickDeleteDespesa(row)}
+              size={20}
+              color="red"
+            />
+          </Tooltip>
         </Space>
       ),
     },
@@ -91,6 +110,9 @@ export default function ListDespesa({ despesas }: ListDespesaProps) {
         columns={columns}
         dataSource={despesas}
         rowKey="numeroProtocolo"
+        pagination={false}
+        className="bg-red-300 rounded-2xl"
+        // onHeaderRow={}
       />
 
       <GenericModal

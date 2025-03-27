@@ -9,7 +9,7 @@ export default function AddNewDespesa() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setIsModalOpen(true)}>
+      <Button onClick={() => setIsModalOpen(true)} type="primary">
         Adicionar Nova Despesa
       </Button>
       <GenericModal

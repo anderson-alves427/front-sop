@@ -3,7 +3,15 @@
 import { IDespesa } from "@/interfaces/IDespesa";
 import { createDespesa } from "@/services/createDespesa/createDespesa.service";
 import { updateDespesa } from "@/services/updateDespesa/updateDespesa.service";
-import { Button, DatePicker, Form, Input, InputNumber, Select } from "antd";
+import {
+  Button,
+  DatePicker,
+  Flex,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+} from "antd";
 import dayjs from "dayjs";
 import { useEffect } from "react";
 
@@ -64,12 +72,14 @@ export default function FormDespesa({ despesa, onSuccess }: FormDespesaProps) {
       >
         <Input />
       </Form.Item>
-      <Form.Item label="Valor da despesa" name="valor">
-        <InputNumber />
-      </Form.Item>
-      <Form.Item label="Data do vencimento" name="dataVencimento">
-        <DatePicker format="DD/MM/YYYY" required />
-      </Form.Item>
+      <Flex>
+        <Form.Item label="Valor da despesa" name="valor">
+          <InputNumber />
+        </Form.Item>
+        <Form.Item label="Data do vencimento" name="dataVencimento">
+          <DatePicker format="DD/MM/YYYY" required />
+        </Form.Item>
+      </Flex>
       <Form.Item
         name="tipoDespesa"
         label="Tipo de despesa"

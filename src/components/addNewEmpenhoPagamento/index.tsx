@@ -24,7 +24,9 @@ export default function AddNewEmpenhoPagamento({
 
   return (
     <>
-      <Button onClick={() => setIsModalOpen(true)}>{buttonLabel}</Button>
+      <Button type="primary" onClick={() => setIsModalOpen(true)}>
+        {buttonLabel}
+      </Button>
       <GenericModal
         handleClose={() => setIsModalOpen(false)}
         isModalOpen={isModalOpen}

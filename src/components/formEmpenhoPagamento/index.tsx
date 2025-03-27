@@ -4,7 +4,7 @@ import { CreateEmpenhoDTO } from "@/services/createEmpenho/createEmpenho.dto";
 import { createEmpenho } from "@/services/createEmpenho/createEmpenho.service";
 import { CreatePagamentoDTO } from "@/services/createPagamento/createPagamento.dto";
 import { createPagamento } from "@/services/createPagamento/createPagamento.service";
-import { Button, DatePicker, Form, Input, InputNumber } from "antd";
+import { Button, DatePicker, Flex, Form, Input, InputNumber } from "antd";
 import dayjs from "dayjs";
 import { useEffect } from "react";
 
@@ -92,12 +92,16 @@ export default function FormEmpenhoPagamento({
 
   return (
     <Form layout="vertical" form={form} onFinish={onFinish}>
-      <Form.Item label="Valor" name="valor">
-        <InputNumber />
-      </Form.Item>
-      <Form.Item label="Data" name="data">
-        <DatePicker />
-      </Form.Item>
+      <Flex gap={10}>
+        <Form.Item label="Valor" name="valor">
+          <InputNumber />
+        </Form.Item>
+        {!params && (
+          <Form.Item label="Data" name="data">
+            <DatePicker />
+          </Form.Item>
+        )}
+      </Flex>
       <Form.Item
         label="Observação"
         name="observacao"

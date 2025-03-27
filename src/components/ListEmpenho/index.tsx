@@ -48,13 +48,13 @@ export default function ListEmpenho({ empenho, despesaId }: ListEmpenhoProps) {
       title: "Número do empenho",
       dataIndex: "numeroEmpenho",
       key: "numeroEmpenho",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p className="text-gray-600">{text}</p>,
     },
     {
       title: "Valor",
       dataIndex: "valorEmpenho",
       key: "valorEmpenho",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p className="text-gray-600">{text}</p>,
     },
     {
       title: "Data do Empenho",
@@ -66,7 +66,7 @@ export default function ListEmpenho({ empenho, despesaId }: ListEmpenhoProps) {
       title: "Observacao",
       dataIndex: "observacao",
       key: "observacao",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p className="text-gray-600">{text}</p>,
     },
 
     {

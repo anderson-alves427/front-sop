@@ -52,13 +52,13 @@ export default function ListPagamento({
       title: "Número do pagamento",
       dataIndex: "numeroPagamento",
       key: "numeroPagamento",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p className="text-gray-600">{text}</p>,
     },
     {
       title: "Valor",
       dataIndex: "valorPagamento",
       key: "valorPagamento",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p className="text-gray-600">{text}</p>,
     },
     {
       title: "Data do Pagamento",
@@ -70,7 +70,7 @@ export default function ListPagamento({
       title: "Observacao",
       dataIndex: "observacao",
       key: "observacao",
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p className="text-gray-600">{text}</p>,
     },
 
     {
