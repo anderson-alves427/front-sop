@@ -21,3 +21,8 @@ bun dev
 ## Considerações
 
 1. A url padrão da api é http://localhost:8080/. Presente no path src/config
+
+## Melhorias
+
+1. Telas de loading
+2. Notificações de resposta backend
