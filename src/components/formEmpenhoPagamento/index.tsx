@@ -5,6 +5,7 @@ import { createEmpenho } from "@/services/createEmpenho/createEmpenho.service";
 import { CreatePagamentoDTO } from "@/services/createPagamento/createPagamento.dto";
 import { createPagamento } from "@/services/createPagamento/createPagamento.service";
 import { updateEmpenho } from "@/services/updateEmpenho/updateEmpenho.service";
+import { updatePagamento } from "@/services/updatePagamento.service";
 import { Button, DatePicker, Flex, Form, Input, InputNumber } from "antd";
 import dayjs from "dayjs";
 import { useEffect } from "react";
@@ -69,7 +70,7 @@ export default function FormEmpenhoPagamento({
           valorPagamento: values.valor,
         };
         if (params) {
-          // await updateDespesa(despesa.id, params);
+          await updatePagamento(despesaId, params.id, paramsPagamento);
           onSuccess();
           return;
         }
